@@ -15,9 +15,8 @@ export default function Navbar() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <div className="p-2 font-extrabold">
+          <div className="p-2 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500">
             <Link href="/" className="flex items-center">
-              <img src="/icon.svg" className="w-8 h-8 mr-2" />
               <h1 className="scroll-m-20 font-extrabold tracking-tight lg:text-2xl">
                 Budgeteer
               </h1>
