@@ -1,8 +1,5 @@
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
-import { TbLogout } from "react-icons/tb";
-import { TbLogin } from "react-icons/tb";
-import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -11,7 +8,15 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-export default function Navbar() {
+import { createClient } from "@/utils/supabase/server";
+import LogInLogOutButton from "./login-logout-button";
+
+export default async function Navbar() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -24,27 +29,31 @@ export default function Navbar() {
             </Link>
           </div>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Dashboard
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/budgets" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Budgets
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/expenses" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Expenses
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {user && (
+          <>
+            <NavigationMenuItem>
+              <Link href="/dashboard" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Dashboard
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/budgets" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Budgets
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/expenses" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Expenses
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </>
+        )}
       </NavigationMenuList>
       <NavigationMenuList>
         <NavigationMenuItem className="mx-4">
@@ -54,10 +63,7 @@ export default function Navbar() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink>
-            <Button className="font-bold">
-              Sign In <TbLogin />
-              {/* Sign In <TbLogout /> */}
-            </Button>
+            <LogInLogOutButton />
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>

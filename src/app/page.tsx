@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FaGithub } from "react-icons/fa";
+import { createClient } from "@/utils/supabase/server";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <section className="space-y-6 py-12 sm:py-20 lg:py-24 text-center m-auto">
       <div className="container flex max-w-screen-md flex-col items-center gap-5 text-center m-auto">
@@ -12,14 +18,16 @@ export default function Home() {
             simply with Budgeteer!
           </span>
         </h1>
-
         <p className="max-w-2xl text-balance text-muted-foreground text-lg">
           Minimalist. Simple. <b>Open Source</b>. <br /> Manage your spending
           and… Nothing else!
         </p>
-
         <div className="flex justify-center space-x-2">
-          <Button className="font-bold">Get Started</Button>
+          {!user && (
+            <Link href="login">
+              <Button className="font-bold">Get Started</Button>
+            </Link>
+          )}
           <Link href="https://github.com/matejkajn/budgeteer" target="_blank">
             <Button variant={"outline"} className="font-bold">
               <FaGithub /> Star on GitHub
