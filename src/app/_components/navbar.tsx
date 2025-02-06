@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { TbLogout } from "react-icons/tb";
+import { TbLogin } from "react-icons/tb";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -54,7 +55,8 @@ export default function Navbar() {
         <NavigationMenuItem>
           <NavigationMenuLink>
             <Button className="font-bold">
-              Log out <TbLogout />
+              Sign In <TbLogin />
+              {/* Sign In <TbLogout /> */}
             </Button>
           </NavigationMenuLink>
         </NavigationMenuItem>
