@@ -25,18 +25,11 @@ export default function LoginPage() {
       <div className="relative hidden bg-muted lg:block h-full w-full ">
         <Image
           src={wallpaper}
+          fill
           alt="Finance"
           className="absolute inset-0 object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
-      {/* <div className="relative hidden bg-muted lg:block">
-        <img
-          src="/public/finance_picture.png"
-          width={600}
-          alt="Finance"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
-      </div> */}
     </div>
   );
 }
