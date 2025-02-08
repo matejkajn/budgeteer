@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
 import { createClient } from "@/utils/supabase/client";
 import { TbLogin, TbLogout } from "react-icons/tb";
+import { toast } from "@/hooks/use-toast";
 
 const LogInLogOutButton = () => {
   const [user, setUser] = useState<any>(null);
@@ -26,6 +27,9 @@ const LogInLogOutButton = () => {
         onClick={() => {
           signout();
           setUser(null);
+          toast({
+            title: "You've been logged out.",
+          });
         }}
       >
         Logout
