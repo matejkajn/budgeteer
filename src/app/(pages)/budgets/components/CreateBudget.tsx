@@ -22,14 +22,21 @@ import {
 import { useMediaQuery } from "@/hooks/use-media-query";
 import CreateBudgetForm from "./CreateBudgetForm";
 
-export default function CreateBudget() {
+type Props = {
+  onCreation: (event: void) => void;
+};
+
+export default function CreateBudget({ ...props }: Props) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild className="p-10 flex flex-col items-center">
+        <DialogTrigger
+          asChild
+          className="p-10 flex flex-col items-center h-[158px] rounded-xl shadow"
+        >
           <Button
             variant="outline"
             className="shadow-none border-dashed text-lg"
@@ -44,7 +51,7 @@ export default function CreateBudget() {
               Create your budget here. You can add a name, amount and an icon.
             </DialogDescription>
           </DialogHeader>
-          <CreateBudgetForm setOpen={setOpen} />
+          <CreateBudgetForm setOpen={setOpen} onCreation={props.onCreation} />
         </DialogContent>
       </Dialog>
     );
@@ -52,7 +59,10 @@ export default function CreateBudget() {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild className="p-10 flex flex-col items-center">
+      <DrawerTrigger
+        asChild
+        className="p-10 flex flex-col items-center h-[158px] rounded-xl shadow"
+      >
         <Button variant="outline" className="shadow-none border-dashed text-lg">
           + Add Budget
         </Button>
@@ -64,7 +74,11 @@ export default function CreateBudget() {
             Create your budget here. You can add a name, amount and an icon.
           </DrawerDescription>
         </DrawerHeader>
-        <CreateBudgetForm className="px-4" setOpen={setOpen} />
+        <CreateBudgetForm
+          className="px-4"
+          setOpen={setOpen}
+          onCreation={props.onCreation}
+        />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>

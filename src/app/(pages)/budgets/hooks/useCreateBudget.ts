@@ -14,13 +14,13 @@ export default async function useCreateBudget(budget: Budget) {
         toast({
             title: `Your Budget "${budget.name} ${budget.icon}" was succesfuly created.`,
         });
-        } else {
+    } else {
         toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
             description: `There was a problem when creating your Budget "${budget.name} ${budget.icon}".`,
         });
-        }
+    }
 
     return { error }
 

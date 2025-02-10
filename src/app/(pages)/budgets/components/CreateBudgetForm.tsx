@@ -7,16 +7,17 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import useCreateBudget from "../hooks/useCreateBudget";
-import { toast } from "@/hooks/use-toast";
 
-interface CreateBudgetFormProps extends React.ComponentProps<"div"> {
-  setOpen?: (open: boolean) => void; // Function to close modal/dialog
-}
+type Props = React.ComponentProps<"div"> & {
+  setOpen?: (open: boolean) => void;
+  onCreation?: (event: void) => void;
+};
 
 export default function CreateBudgetForm({
   className,
   setOpen,
-}: CreateBudgetFormProps) {
+  onCreation,
+}: Props) {
   const [name, setName] = React.useState("");
   const [amount, setAmount] = React.useState(0);
   const [emojiIcon, setEmojiIcon] = React.useState("🚗");
@@ -26,29 +27,27 @@ export default function CreateBudgetForm({
   return (
     <div className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-2">
-        <Label htmlFor="name">Name</Label>
+        <Label>Name</Label>
         <Input
           type="text"
-          id="name"
           placeholder="My new car"
           onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div className="grid gap-2">
-          <Label htmlFor="amount">Amount</Label>
+          <Label>Amount</Label>
           <Input
             min={0}
             type="number"
-            id="amount"
             step="0.01"
             onChange={(e) => setAmount(parseFloat(e.target.value))}
-            placeholder="e.g. 2000€"
+            placeholder="e.g. €2000"
             defaultValue="@shadcn"
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="icon">Icon</Label>
+          <Label>Icon</Label>
           <Button
             variant="outline"
             onClick={(e) => {
@@ -74,6 +73,7 @@ export default function CreateBudgetForm({
           e.preventDefault();
           if (!isDisabled) {
             useCreateBudget({ name, amount, icon: emojiIcon });
+            onCreation?.();
             setOpen?.(false);
           }
         }}
