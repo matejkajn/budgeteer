@@ -32,7 +32,7 @@ export function BudgetCard({ ...props }: Props) {
             <div className="text-xl w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
               {props.icon}
             </div>
-            <Link href={`/budgets/${props.name}`}>
+            <Link key={props.id} href={`/budgets/${props.id}`}>
               <h3 className="text-lg font-semibold">{props.name}</h3>
             </Link>
           </div>
@@ -59,11 +59,11 @@ export function BudgetCard({ ...props }: Props) {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                Are you sure you want to delete this budget item?
+                {`Are you sure you want to delete ${props.name} ${props.icon}?`}
               </DialogTitle>
               <DialogDescription>
-                This action cannot be undone. This will permanently delete the "
-                {props.name}" budget item.
+                This action cannot be undone. This will permanently delete
+                budget "{props.name} {props.icon}".
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>

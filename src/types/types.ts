@@ -4,3 +4,12 @@ export type Budget = {
     amount: number,
     icon: string,
 }
+
+export type Expense = {
+    id: number,
+    name: string,
+    price: number,
+    description: string,
+    budgetId: number,
+    date: Date
+}
